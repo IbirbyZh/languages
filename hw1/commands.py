@@ -1,0 +1,24 @@
+PRINT = -1
+ADD = -2
+ADD_C = -3
+PUSH = -4
+CALL = -5
+
+JUMP = -6
+LC_JUMP = -7
+IN = -8
+
+ASS = -10
+PRINT_INT = -9
+
+ASS_C = -11
+
+PUSH_C = -12
+
+JUMP_BACK = -13
+
+REDUCE = -14
+
+LOCAL = -15
+
+DEC = -16
