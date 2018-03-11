@@ -16,9 +16,33 @@ class VirtualMachine(object):
             for i in range(0, len(a), 4):
                 self.memory[i // 4] = int.from_bytes(a[i:i + 4], 'little')
 
-        self.frame_pointer = self.memory.shape[0] - 1
+        self.frame_pointer = self.memory.shape[0] - 1 - 3
         self.exec_pointer = 0
         self.push_delta = 0
+
+    @property
+    def exec_pointer(self):
+        return self.at(-1)
+
+    @exec_pointer.setter
+    def exec_pointer(self, value):
+        self.memory[-1] = value
+
+    @property
+    def frame_pointer(self):
+        return self.at(-2)
+
+    @frame_pointer.setter
+    def frame_pointer(self, value):
+        self.memory[-2] = value
+
+    @property
+    def push_delta(self):
+        return self.at(-3)
+
+    @push_delta.setter
+    def push_delta(self, value):
+        self.memory[-3] = value
 
     def __repr__(self):
         return str(self.memory[:10])
