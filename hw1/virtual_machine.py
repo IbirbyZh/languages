@@ -14,7 +14,7 @@ class VirtualMachine(object):
             a = memory.read()
             assert len(a) % 4 == 0
             for i in range(0, len(a), 4):
-                self.memory[i // 4] = int.from_bytes(a[i:i + 4], 'little')
+                self.memory[i // 4] = int.from_bytes(a[i:i + 4], 'little', signed=True)
 
         self.frame_pointer = self.memory.shape[0] - 1 - 3
         self.exec_pointer = 0
@@ -152,7 +152,6 @@ class VirtualMachine(object):
 
     def run(self):
         command = self.exec()
-        # print(command)
 
         if self.exec() == PRINT:
             self.PRINT()
@@ -210,9 +209,7 @@ def main():
     args = parse_args()
     machine = VirtualMachine(args.stack_size, args.memory)
     while machine.run():
-        # print(machine.memory[machine.frame_pointer + 1:])
         pass
-        # print(machine.memory[machine.frame_pointer + 1:])
 
 
 if __name__ == '__main__':
