@@ -58,22 +58,22 @@ struct SafeClass {
         objects[currentEnv].insert(this);
     }
 
-    virtual void Destruct() {
+    virtual ~SafeClass() {
         if (!inClearStack) {
             objects[currentEnv].erase(this);
         }
     }
-
-    virtual ~SafeClass(){
-        Destruct();
-    }
 };
 
 void clearStack() {
+    if (inClearStack) {
+        std::cerr << "throw exception in destructor" << std::endl;
+        exit(2);
+    }
     std::cerr << "start clear stack" << std::endl;
     inClearStack = true;
     for (SafeClass *a:objects[currentEnv]) {
-        a->Destruct();
+        a->~SafeClass();
     }
     inClearStack = false;
     std::cerr << "end clear stack" << std::endl;

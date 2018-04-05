@@ -4,15 +4,10 @@
 
 class Int : public SafeClass {
 public:
-    explicit Int(int a) : value(a) {}
-
-    virtual void Destruct() override {
-        std::cerr << "destruct " << value << std::endl;
-        SafeClass::Destruct();
-    }
+    Int(int a) : value(a) {}
 
     virtual ~Int() {
-        Destruct();
+        std::cerr << "destruct " << value << std::endl;
     }
 
     int value;
@@ -35,21 +30,21 @@ void coo() {
     THROW(Exception_C);
 }
 
-void foo(){
+void foo() {
     TRY(
-        boo();
+            boo();
     )
-    CATCH(Exception_B,
-        std::cout << "Exception_B in foo" << std::endl;
-    )
+            CATCH(Exception_B,
+                  std::cout << "Exception_B in foo" << std::endl;
+            )
     ENDTRY
 
     TRY(
-        coo();
+            coo();
     )
-    CATCH(Exception_B,
-        std::cout << "Exception_B in foo" << std::endl;
-    )
+            CATCH(Exception_B,
+                  std::cout << "Exception_B in foo" << std::endl;
+            )
     ENDTRY
 }
 
@@ -59,18 +54,18 @@ int main() {
             foo({4});
             foo({10});
     )
-    CATCH(Exception_A,
-          std::cout << "Exception_A" << std::endl;
-    )
-    CATCH(Exception_B,
-          std::cout << "Exception_B" << std::endl;
-    )
+            CATCH(Exception_A,
+                  std::cout << "Exception_A" << std::endl;
+            )
+            CATCH(Exception_B,
+                  std::cout << "Exception_B" << std::endl;
+            )
     ENDTRY
     TRY(
-        foo();
+            foo();
     )
-    CATCH(Exception_C,
-          std::cout << "Exception_C" << std::endl;
-    )
+            CATCH(Exception_C,
+                  std::cout << "Exception_C" << std::endl;
+            )
     ENDTRY
 }
