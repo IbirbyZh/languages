@@ -5,4 +5,8 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS -fno-exceptions)
 
 
-add_executable(hw2 main.cpp myexceptions.h)
+add_executable(good_example_1 good_example_1.cpp myexceptions.h)
+add_executable(good_example_2 good_example_2.cpp myexceptions.h)
+
+add_executable(bad_example_1 bad_example_1.cpp myexceptions.h)
+add_executable(bad_example_2 bad_example_2.cpp myexceptions.h)

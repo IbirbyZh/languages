@@ -27,7 +27,7 @@ namespace {
 #define ENDTRY \
         default: \
         --currentEnv; \
-        if (currentEnv < 0) {std::cerr << "unhandled exception" << std::endl; exit(1);} \
+        if (currentEnv < 0) {std::cerr << "ERROR: unhandled exception" << std::endl; exit(1);} \
         std::longjmp(env[currentEnv], exceptionFlag); \
         break; \
     } \
@@ -67,14 +67,12 @@ struct SafeClass {
 
 void clearStack() {
     if (inClearStack) {
-        std::cerr << "throw exception in destructor" << std::endl;
+        std::cerr << "ERROR: throw exception in destructor" << std::endl;
         exit(2);
     }
-    std::cerr << "start clear stack" << std::endl;
     inClearStack = true;
     for (SafeClass *a:objects[currentEnv]) {
         a->~SafeClass();
     }
     inClearStack = false;
-    std::cerr << "end clear stack" << std::endl;
 }
