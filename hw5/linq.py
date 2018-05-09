@@ -1,4 +1,4 @@
-from itertools import chain, groupby, islice
+from myitertools import chain, groupby, islice
 
 
 class Linq(object):
@@ -18,7 +18,7 @@ class Linq(object):
         return Linq(islice(self._iterable, n))
 
     def group_by(self, func):
-        return Linq(groupby(sorted(self._iterable, key=func), key=func))
+        return Linq(groupby(self._iterable, func))
 
     def order_by(self, func):
         return Linq(sorted(self._iterable, key=func))
